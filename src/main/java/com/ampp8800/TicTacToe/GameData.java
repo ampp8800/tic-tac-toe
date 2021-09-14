@@ -1,7 +1,8 @@
 package com.ampp8800.TicTacToe;
 
 public class GameData {
-    private Symbol.GameElements[][] matrix = new Symbol.GameElements[3][3];
+    static final int FIELD_SIZE = 3;
+    private Symbol.GameElements[][] matrix = new Symbol.GameElements[FIELD_SIZE][FIELD_SIZE];
 
     public void clearMatrix(Symbol.GameElements symbol) {
         for (int i = 0; i<matrix[0].length; i++) {

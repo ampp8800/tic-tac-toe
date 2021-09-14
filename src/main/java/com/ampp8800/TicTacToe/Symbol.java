@@ -4,17 +4,16 @@ public class Symbol {
     private static final char CROSS = 'X';
     private static final char ZERO = 'O';
     private static final char SPASE = ' ';
-    private static final char YES = 'y';
-    private static final char YES_CASE = 'Y';
-    private static final char NO = 'n';
-    private static final char NO_CASE = 'N';
+    private static final char[] YES = new char[] {'y', 'Y'};
+    private static final char[] NO = new char[] {'n', 'N'};
+
 
     enum GameElements {
         CROSS(Symbol.CROSS),
         ZERO(Symbol.ZERO),
         SPASE(Symbol.SPASE),
-        YES(Symbol.YES, Symbol.YES_CASE),
-        NO(Symbol.NO, Symbol.NO_CASE);
+        YES(Symbol.YES),
+        NO(Symbol.NO);
 
         private char[] symbol;
 

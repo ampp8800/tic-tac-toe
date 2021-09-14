@@ -1,7 +1,7 @@
 package com.ampp8800.TicTacToe;
 
-public class VictoryCheck {
-    public static boolean checkGame(Symbol.GameElements[][] matrix) {
+public class GameFinishCheck {
+    public static boolean checkVictory(Symbol.GameElements[][] matrix) {
         for (int i = 0; i<matrix[0].length; i++) {
             if (chekLine(matrix[i])) {
                 return true;
@@ -28,22 +28,33 @@ public class VictoryCheck {
         return false;
     }
 
-    public static boolean chekLine(Symbol.GameElements[] massiv) {
+    public static boolean checkDraw(Symbol.GameElements[][] matrix) {
+        for (int i = 0; i<matrix[0].length; i++) {
+            for (int j = 0; j< matrix.length; j++) {
+                if (matrix[j][i] == Symbol.GameElements.SPASE) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private static boolean chekLine(Symbol.GameElements[] line) {
         Symbol.GameElements symbol;
-        if (!Symbol.GameElements.SPASE.equals(massiv[0])) {
-            symbol = massiv[0];
+        if (!Symbol.GameElements.SPASE.equals(line[0])) {
+            symbol = line[0];
         } else {
             return false;
         }
-        for (int i = 1; i< massiv.length; i++) {
-            if (symbol != massiv[i]) {
+        for (int i = 1; i< line.length; i++) {
+            if (symbol != line[i]) {
                 return false;
             }
         }
         return true;
     }
 
-    public static boolean chekDiagonal (Symbol.GameElements[][] matrix) {
+    private static boolean chekDiagonal (Symbol.GameElements[][] matrix) {
         Symbol.GameElements symbol;
         if (matrix[0][0] != Symbol.GameElements.SPASE) {
             symbol = matrix[0][0];

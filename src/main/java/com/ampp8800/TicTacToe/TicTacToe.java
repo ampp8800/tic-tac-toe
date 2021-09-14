@@ -18,7 +18,7 @@ public class TicTacToe {
             GameOutput.fieldOutput(gameData.getMatrix());
             System.out.print("player " + valueOf(player.getSymbol()) + " turn: ");
             recording = cellAssignment();
-            if (VictoryCheck.checkGame(gameData.getMatrix())) {
+            if (GameFinishCheck.checkVictory(gameData.getMatrix())) {
                 GameOutput.fieldOutput(gameData.getMatrix());
                 System.out.println("Player " + valueOf(player.getSymbol()) + " win!");
                 System.out.println("one more batch?");
@@ -28,7 +28,7 @@ public class TicTacToe {
                     break;
                 }
             }
-            if (DrawCheck.checkGame(gameData.getMatrix())) {
+            if (GameFinishCheck.checkDraw(gameData.getMatrix())) {
                 GameOutput.fieldOutput(gameData.getMatrix());
                 System.out.println("Draw!");
                 System.out.println("one more batch?");
@@ -51,12 +51,13 @@ public class TicTacToe {
                 int column = Integer.parseInt(curritLine.substring(curritLine.length() - 1));
                 column--;
                 int line = curritLine.charAt(0);
-                line -= 65;
-                if (line > 30) {
-                    line -= 32;
+                if (line >= 'a'){
+                    line -= 'a';
+                } else {
+                    line -= 'A';
                 }
                 recordingCell = gameData.setMatrix(line, column, player);
-                if (!recordingCell && (line<=3 || column<=3)) {
+                if (!recordingCell && (line<=GameData.FIELD_SIZE || column<=GameData.FIELD_SIZE)) {
                     System.out.println("The selected cell is busy");
                 }
             } else {
