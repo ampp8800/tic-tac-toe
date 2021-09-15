@@ -1,4 +1,4 @@
-package com.ampp8800.TicTacToe;
+package com.ampp8800.tic-tac-toe;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
