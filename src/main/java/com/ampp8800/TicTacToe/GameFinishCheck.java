@@ -1,4 +1,4 @@
-package com.ampp8800.TicTacToe;
+package com.ampp8800.tic-tac-toe;
 
 public class GameFinishCheck {
     public static boolean checkVictory(Symbol.GameElements[][] matrix) {
