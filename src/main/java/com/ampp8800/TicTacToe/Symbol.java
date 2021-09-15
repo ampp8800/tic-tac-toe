@@ -1,4 +1,4 @@
-package com.ampp8800.TicTacToe;
+package com.ampp8800.tic-tac-toe;
 
 public class Symbol {
     private static final char CROSS = 'X';
