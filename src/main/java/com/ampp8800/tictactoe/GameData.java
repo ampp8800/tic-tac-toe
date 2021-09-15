@@ -1,4 +1,4 @@
-package com.ampp8800.tic-tac-toe;
+package com.ampp8800.tictactoe;
 
 public class GameData {
     static final int FIELD_SIZE = 3;

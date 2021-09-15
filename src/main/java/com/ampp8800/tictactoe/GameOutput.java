@@ -1,4 +1,4 @@
-package com.ampp8800.tic-tac-toe;
+package com.ampp8800.tictactoe;
 
 import static java.lang.String.valueOf;
 
@@ -6,7 +6,7 @@ public class GameOutput {
     public static void fieldOutput(Symbol.GameElements[][] matrix) {
         System.out.print("  ");
         for (int i = 1; i<matrix.length+1; i++) {
-            System.out.print("  " + i);
+            System.out.print("   " + i);
         }
         System.out.println();
         dottedLine(matrix[0]);
