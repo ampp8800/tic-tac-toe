@@ -2,6 +2,7 @@ package com.ampp8800.tictactoe;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+
 import static java.lang.String.valueOf;
 
 public class TicTacToe {
@@ -51,13 +52,13 @@ public class TicTacToe {
                 int column = Integer.parseInt(curritLine.substring(curritLine.length() - 1));
                 column--;
                 int line = curritLine.charAt(0);
-                if (line >= 'a'){
+                if (line >= 'a') {
                     line -= 'a';
                 } else {
                     line -= 'A';
                 }
                 recordingCell = gameData.setMatrix(line, column, player);
-                if (!recordingCell && (line<=GameData.FIELD_SIZE || column<=GameData.FIELD_SIZE)) {
+                if (!recordingCell && (line <= GameData.FIELD_SIZE || column <= GameData.FIELD_SIZE)) {
                     System.out.println("The selected cell is busy");
                 }
             } else {
@@ -85,7 +86,7 @@ public class TicTacToe {
             try {
                 Symbol.GameElements inputData = null;
                 String curritLine = reader.readLine();
-                if (curritLine.length() == 1){
+                if (curritLine.length() == 1) {
                     inputData = Symbol.GameElements.getFromChar(curritLine.charAt(0));
                 }
                 if (inputData == Symbol.GameElements.YES) {

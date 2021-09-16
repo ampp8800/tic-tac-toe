@@ -4,8 +4,8 @@ public class Symbol {
     private static final char CROSS = 'X';
     private static final char ZERO = 'O';
     private static final char SPASE = ' ';
-    private static final char[] YES = new char[] {'y', 'Y'};
-    private static final char[] NO = new char[] {'n', 'N'};
+    private static final char[] YES = new char[]{'y', 'Y'};
+    private static final char[] NO = new char[]{'n', 'N'};
 
 
     enum GameElements {
