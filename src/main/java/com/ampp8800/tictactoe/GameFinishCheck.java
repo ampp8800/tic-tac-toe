@@ -1,7 +1,24 @@
 package com.ampp8800.tictactoe;
 
 public class GameFinishCheck {
-    public static boolean checkVictory(Symbol.GameElements[][] matrix) {
+    public static boolean checkVictory(Symbol.GameElements[][] matrix, int victoryLength) {
+        Symbol.GameElements[][] currentMatrix = new Symbol.GameElements[victoryLength][victoryLength];
+        for (int i = 0; i <= (matrix[0].length - victoryLength); i++) {
+            for (int j = 0; j <= (matrix.length - victoryLength); j++) {
+                for (int line = 0; line < victoryLength; line++) {
+                    for (int column = 0; column < victoryLength; column++) {
+                        currentMatrix[line][column] = matrix[i + line][j + column];
+                    }
+                }
+                if (checkBoxVictory(currentMatrix)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static boolean checkBoxVictory(Symbol.GameElements[][] matrix) {
         for (int i = 0; i < matrix[0].length; i++) {
             if (chekLine(matrix[i])) {
                 return true;

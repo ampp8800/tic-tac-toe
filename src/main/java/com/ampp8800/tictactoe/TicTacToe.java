@@ -9,40 +9,60 @@ public class TicTacToe {
 
     static Symbol.GameElements player = Symbol.GameElements.CROSS;
     static boolean recording;
-    static GameData gameData = new GameData();
+    static boolean newGame = true;
+    static GameData gameData;
     static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
     public static void main(String[] args) {
-        gameData.clearMatrix(Symbol.GameElements.SPASE);
         System.out.println("Hey! Let's play?");
         while (true) {
-            GameOutput.fieldOutput(gameData.getMatrix());
-            System.out.print("player " + valueOf(player.getSymbol()) + " turn: ");
-            recording = cellAssignment();
-            if (GameFinishCheck.checkVictory(gameData.getMatrix())) {
-                GameOutput.fieldOutput(gameData.getMatrix());
-                System.out.println("Player " + valueOf(player.getSymbol()) + " win!");
-                System.out.println("one more batch?");
-                if (nextGame()) {
-                    gameData.clearMatrix(Symbol.GameElements.SPASE);
-                } else {
-                    break;
-                }
+            if (newGame) {
+                gameData = startGameData();
             }
-            if (GameFinishCheck.checkDraw(gameData.getMatrix())) {
+            if (!newGame) {
                 GameOutput.fieldOutput(gameData.getMatrix());
-                System.out.println("Draw!");
-                System.out.println("one more batch?");
-                if (nextGame()) {
-                    gameData.clearMatrix(Symbol.GameElements.SPASE);
-                } else {
-                    break;
+                System.out.print("player " + valueOf(player.getSymbol()) + " turn: ");
+                recording = cellAssignment();
+                if (GameFinishCheck.checkVictory(gameData.getMatrix(), gameData.getVictoryLength())) {
+                    GameOutput.fieldOutput(gameData.getMatrix());
+                    System.out.println("Player " + valueOf(player.getSymbol()) + " win!");
+                    System.out.println("one more batch?");
+                    if (nextGame()) {
+                        newGame = true;
+                    } else {
+                        break;
+                    }
                 }
+                if (GameFinishCheck.checkDraw(gameData.getMatrix())) {
+                    GameOutput.fieldOutput(gameData.getMatrix());
+                    System.out.println("Draw!");
+                    System.out.println("one more batch?");
+                    if (nextGame()) {
+                        newGame = true;
+                    } else {
+                        break;
+                    }
+                }
+                player = nextMove(recording, player);
             }
-            player = nextMove(recording, player);
         }
     }
 
+    public static GameData startGameData() {
+        GameData currentData = null;
+        System.out.println("Set the size of the field and the length of the winning sequence (X Y n)");
+        try {
+            currentData = new GameData(IncomingStartData.settingFieldAndSequence(reader.readLine()));
+            currentData.clearMatrix(Symbol.GameElements.SPASE);
+        } catch (Exception unused) {
+        }
+        if (currentData == null) {
+            System.out.println("Incorrect input");
+        } else {
+            newGame = false;
+        }
+        return currentData;
+    }
 
     public static boolean cellAssignment() {
         boolean recordingCell = false;
@@ -58,7 +78,7 @@ public class TicTacToe {
                     line -= 'A';
                 }
                 recordingCell = gameData.setMatrix(line, column, player);
-                if (!recordingCell && (line <= GameData.FIELD_SIZE || column <= GameData.FIELD_SIZE)) {
+                if (!recordingCell && (line <= gameData.getFieldWidth() || column <= gameData.getFieldHeight())) {
                     System.out.println("The selected cell is busy");
                 }
             } else {
