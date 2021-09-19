@@ -7,7 +7,7 @@ public class GameFinishCheck {
             for (int j = 0; j <= (matrix.length - victoryLength); j++) {
                 for (int line = 0; line < victoryLength; line++) {
                     for (int column = 0; column < victoryLength; column++) {
-                        currentMatrix[line][column] = matrix[i + line][j + column];
+                        currentMatrix[line][column] = matrix[j + line][i + column];
                     }
                 }
                 if (checkBoxVictory(currentMatrix)) {

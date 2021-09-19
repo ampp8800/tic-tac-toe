@@ -68,24 +68,22 @@ public class TicTacToe {
         boolean recordingCell = false;
         try {
             String curritLine = reader.readLine();
-            if (curritLine.length() == 2) {
-                int column = Integer.parseInt(curritLine.substring(curritLine.length() - 1));
-                column--;
-                int line = curritLine.charAt(0);
-                if (line >= 'a') {
-                    line -= 'a';
-                } else {
-                    line -= 'A';
-                }
-                recordingCell = gameData.setMatrix(line, column, player);
-                if (!recordingCell && (line <= gameData.getFieldWidth() || column <= gameData.getFieldHeight())) {
-                    System.out.println("The selected cell is busy");
-                }
+            int columns = Integer.parseInt(curritLine.substring(1));
+            columns--;
+            System.out.println(columns);
+            int lines = curritLine.charAt(0);
+            if (lines >= 'a') {
+                lines -= 'a';
             } else {
-                System.out.println("Incorrect input");
+                lines -= 'A';
+            }
+            recordingCell = gameData.setMatrix(lines, columns, player);
+            if (!recordingCell && (lines <= gameData.getFieldWidth() || columns <= gameData.getFieldHeight())) {
+                System.out.println("The selected cell is busy");
             }
         } catch (Exception e) {
-            System.out.println("Incorrect input");
+            System.out.print("Incorrect input. Allowable values ");
+            System.out.println("a..." + (char) (gameData.getFieldHeight() - 1 + 'a') + " 1..." + gameData.getFieldWidth());
         }
         return recordingCell;
     }

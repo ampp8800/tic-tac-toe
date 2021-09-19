@@ -16,7 +16,7 @@ public class IncomingStartData {
             return null;
         }
         if (intData[0] >= MIN_SIZE && intData[1] >= MIN_SIZE && intData[0] <= MAX_SIZE && intData[1] <= MAX_SIZE) {
-            if (intData[2] <= intData[0] && intData[2] <= intData[1]) {
+            if (intData[2] <= intData[0] && intData[2] <= intData[1] && intData[2] >= MIN_SIZE) {
                 return intData;
             } else {
                 System.out.println("unavailable sequence length");
