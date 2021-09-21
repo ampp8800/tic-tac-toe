@@ -1,6 +1,7 @@
 package com.ampp8800.tictactoe;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 import static java.lang.String.valueOf;
@@ -68,35 +69,41 @@ public class TicTacToe {
         boolean recordingCell = false;
         try {
             String curritLine = reader.readLine();
-            int columns = Integer.parseInt(curritLine.substring(1));
-            columns--;
-            System.out.println(columns);
-            int lines = curritLine.charAt(0);
-            if (lines >= 'a') {
-                lines -= 'a';
-            } else {
-                lines -= 'A';
+            if (curritLine != null) {
+                int columns = Integer.parseInt(curritLine.substring(1));
+                columns--;
+                int lines = curritLine.charAt(0);
+                if (lines >= 'a') {
+                    lines -= 'a';
+                } else {
+                    lines -= 'A';
+                }
+                if (columns <= (gameData.getFieldWidth() - 1) && lines <= (gameData.getFieldHeight() - 1)) {
+                    recordingCell = gameData.setMatrix(lines, columns, player);
+                    if (!recordingCell) {
+                        System.out.println("The selected cell is busy");
+                    }
+                } else {
+                    System.out.print("Incorrect input. Allowable values ");
+                    System.out.println("a..." + (char) (gameData.getFieldHeight() - 1 + 'a') + " 1..." + gameData.getFieldWidth());
+                }
             }
-            recordingCell = gameData.setMatrix(lines, columns, player);
-            if (!recordingCell && (lines <= gameData.getFieldWidth() || columns <= gameData.getFieldHeight())) {
-                System.out.println("The selected cell is busy");
-            }
-        } catch (Exception e) {
+        } catch (NumberFormatException | IOException e) {
             System.out.print("Incorrect input. Allowable values ");
             System.out.println("a..." + (char) (gameData.getFieldHeight() - 1 + 'a') + " 1..." + gameData.getFieldWidth());
         }
         return recordingCell;
     }
 
-    public static Symbol.GameElements nextMove(boolean recordingCell, Symbol.GameElements player) {
+    public static Symbol.GameElements nextMove(boolean recordingCell, Symbol.GameElements nextPlayer) {
         if (recordingCell) {
-            if (player == Symbol.GameElements.CROSS) {
-                player = Symbol.GameElements.ZERO;
+            if (nextPlayer == Symbol.GameElements.CROSS) {
+                nextPlayer = Symbol.GameElements.ZERO;
             } else {
-                player = Symbol.GameElements.CROSS;
+                nextPlayer = Symbol.GameElements.CROSS;
             }
         }
-        return player;
+        return nextPlayer;
     }
 
     public static boolean nextGame() {
@@ -104,17 +111,19 @@ public class TicTacToe {
             try {
                 Symbol.GameElements inputData = null;
                 String curritLine = reader.readLine();
-                if (curritLine.length() == 1) {
-                    inputData = Symbol.GameElements.getFromChar(curritLine.charAt(0));
+                if (curritLine != null) {
+                    if (curritLine.length() == 1) {
+                        inputData = Symbol.GameElements.getFromChar(curritLine.charAt(0));
+                    }
+                    if (inputData == Symbol.GameElements.YES) {
+                        return true;
+                    } else if (inputData == Symbol.GameElements.NO) {
+                        return false;
+                    } else {
+                        System.out.println("Incorrect input");
+                    }
                 }
-                if (inputData == Symbol.GameElements.YES) {
-                    return true;
-                } else if (inputData == Symbol.GameElements.NO) {
-                    return false;
-                } else {
-                    System.out.println("Incorrect input");
-                }
-            } catch (Exception e) {
+            } catch (IOException e) {
                 System.out.println("Incorrect input");
             }
         }
