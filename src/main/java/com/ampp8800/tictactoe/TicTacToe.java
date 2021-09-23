@@ -9,7 +9,7 @@ import static java.lang.String.valueOf;
 public class TicTacToe {
 
     static Symbol.GameElements player = Symbol.GameElements.CROSS;
-    static boolean recording;
+    static boolean isMoveSuccessfullyCompleted;
     static boolean newGame = true;
     static GameData gameData;
     static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -23,7 +23,7 @@ public class TicTacToe {
             if (!newGame) {
                 GameOutput.fieldOutput(gameData.getMatrix());
                 System.out.print("player " + valueOf(player.getSymbol()) + " turn: ");
-                recording = cellAssignment();
+                isMoveSuccessfullyCompleted = cellAssignment();
                 if (GameFinishCheck.checkVictory(gameData.getMatrix(), gameData.getVictoryLength())) {
                     GameOutput.fieldOutput(gameData.getMatrix());
                     System.out.println("Player " + valueOf(player.getSymbol()) + " win!");
@@ -44,7 +44,7 @@ public class TicTacToe {
                         break;
                     }
                 }
-                player = nextMove(recording, player);
+                player = nextMove(isMoveSuccessfullyCompleted, player);
             }
         }
     }
@@ -66,7 +66,7 @@ public class TicTacToe {
     }
 
     public static boolean cellAssignment() {
-        boolean recordingCell = false;
+        boolean cellEntry = false;
         try {
             String curritLine = reader.readLine();
             if (curritLine != null) {
@@ -79,12 +79,12 @@ public class TicTacToe {
                     lines -= 'A';
                 }
                 if (columns <= (gameData.getFieldWidth() - 1) && lines <= (gameData.getFieldHeight() - 1)) {
-                    recordingCell = gameData.setMatrix(lines, columns, player);
-                    if (!recordingCell) {
+                    cellEntry = gameData.setMatrix(lines, columns, player);
+                    if (!cellEntry) {
                         System.out.println("The selected cell is busy");
                     }
                 } else {
-                    System.out.print("Incorrect input. Allowable values ");
+                    System.out.print("Incorrect input. Cell out of bounds ");
                     System.out.println("a..." + (char) (gameData.getFieldHeight() - 1 + 'a') + " 1..." + gameData.getFieldWidth());
                 }
             }
@@ -92,11 +92,11 @@ public class TicTacToe {
             System.out.print("Incorrect input. Allowable values ");
             System.out.println("a..." + (char) (gameData.getFieldHeight() - 1 + 'a') + " 1..." + gameData.getFieldWidth());
         }
-        return recordingCell;
+        return cellEntry;
     }
 
-    public static Symbol.GameElements nextMove(boolean recordingCell, Symbol.GameElements nextPlayer) {
-        if (recordingCell) {
+    public static Symbol.GameElements nextMove(boolean isNewSymbolRecorded, Symbol.GameElements nextPlayer) {
+        if (isNewSymbolRecorded) {
             if (nextPlayer == Symbol.GameElements.CROSS) {
                 nextPlayer = Symbol.GameElements.ZERO;
             } else {
@@ -110,10 +110,10 @@ public class TicTacToe {
         while (true) {
             try {
                 Symbol.GameElements inputData = null;
-                String curritLine = reader.readLine();
-                if (curritLine != null) {
-                    if (curritLine.length() == 1) {
-                        inputData = Symbol.GameElements.getFromChar(curritLine.charAt(0));
+                String currentLine = reader.readLine();
+                if (currentLine != null) {
+                    if (currentLine.length() == 1) {
+                        inputData = Symbol.GameElements.getFromChar(currentLine.charAt(0));
                     }
                     if (inputData == Symbol.GameElements.YES) {
                         return true;
