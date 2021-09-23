@@ -1,15 +1,36 @@
 package com.ampp8800.tictactoe;
 
 public class GameData {
-    static final int FIELD_SIZE = 3;
-    private Symbol.GameElements[][] matrix = new Symbol.GameElements[FIELD_SIZE][FIELD_SIZE];
+    private int fieldWidth;
+    private int fieldHeight;
+    private int victoryLength;
+    private Symbol.GameElements[][] matrix;
+
+    public GameData(int[] inputData) {
+        this.fieldWidth = inputData[0];
+        this.fieldHeight = inputData[1];
+        this.victoryLength = inputData[2];
+        this.matrix = new Symbol.GameElements[fieldHeight][fieldWidth];
+    }
 
     public void clearMatrix(Symbol.GameElements symbol) {
         for (int i = 0; i < matrix[0].length; i++) {
             for (int j = 0; j < matrix.length; j++) {
-                matrix[i][j] = symbol;
+                matrix[j][i] = symbol;
             }
         }
+    }
+
+    public int getFieldWidth() {
+        return fieldWidth;
+    }
+
+    public int getFieldHeight() {
+        return fieldHeight;
+    }
+
+    public int getVictoryLength() {
+        return victoryLength;
     }
 
     public Symbol.GameElements[][] getMatrix() {
